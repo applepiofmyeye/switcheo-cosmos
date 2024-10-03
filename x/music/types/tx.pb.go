@@ -6,10 +6,6 @@ package types
 import (
 	context "context"
 	fmt "fmt"
-	io "io"
-	math "math"
-	math_bits "math/bits"
-
 	_ "github.com/cosmos/cosmos-proto"
 	_ "github.com/cosmos/cosmos-sdk/types/msgservice"
 	_ "github.com/cosmos/cosmos-sdk/types/tx/amino"
@@ -19,6 +15,9 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	io "io"
+	math "math"
+	math_bits "math/bits"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -36,8 +35,6 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 type MsgUpdateParams struct {
 	// authority is the address that controls the module (defaults to x/gov unless overwritten).
 	Authority string `protobuf:"bytes,1,opt,name=authority,proto3" json:"authority,omitempty"`
-	// params defines the module parameters to update.
-	//
 	// NOTE: All parameters must be supplied.
 	Params Params `protobuf:"bytes,2,opt,name=params,proto3" json:"params"`
 }
@@ -127,35 +124,440 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
+type MsgCreateSong struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Title   string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+}
+
+func (m *MsgCreateSong) Reset()         { *m = MsgCreateSong{} }
+func (m *MsgCreateSong) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateSong) ProtoMessage()    {}
+func (*MsgCreateSong) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d889f81a2b90c745, []int{2}
+}
+func (m *MsgCreateSong) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreateSong) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreateSong.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreateSong) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateSong.Merge(m, src)
+}
+func (m *MsgCreateSong) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreateSong) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateSong.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreateSong proto.InternalMessageInfo
+
+func (m *MsgCreateSong) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgCreateSong) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+type MsgCreateSongResponse struct {
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *MsgCreateSongResponse) Reset()         { *m = MsgCreateSongResponse{} }
+func (m *MsgCreateSongResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateSongResponse) ProtoMessage()    {}
+func (*MsgCreateSongResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d889f81a2b90c745, []int{3}
+}
+func (m *MsgCreateSongResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreateSongResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreateSongResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreateSongResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateSongResponse.Merge(m, src)
+}
+func (m *MsgCreateSongResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreateSongResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateSongResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreateSongResponse proto.InternalMessageInfo
+
+func (m *MsgCreateSongResponse) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type MsgUpdateSong struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Title   string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Id      uint64 `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *MsgUpdateSong) Reset()         { *m = MsgUpdateSong{} }
+func (m *MsgUpdateSong) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateSong) ProtoMessage()    {}
+func (*MsgUpdateSong) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d889f81a2b90c745, []int{4}
+}
+func (m *MsgUpdateSong) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgUpdateSong) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgUpdateSong.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgUpdateSong) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateSong.Merge(m, src)
+}
+func (m *MsgUpdateSong) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgUpdateSong) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateSong.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgUpdateSong proto.InternalMessageInfo
+
+func (m *MsgUpdateSong) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgUpdateSong) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *MsgUpdateSong) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type MsgUpdateSongResponse struct {
+}
+
+func (m *MsgUpdateSongResponse) Reset()         { *m = MsgUpdateSongResponse{} }
+func (m *MsgUpdateSongResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateSongResponse) ProtoMessage()    {}
+func (*MsgUpdateSongResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d889f81a2b90c745, []int{5}
+}
+func (m *MsgUpdateSongResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgUpdateSongResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgUpdateSongResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgUpdateSongResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateSongResponse.Merge(m, src)
+}
+func (m *MsgUpdateSongResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgUpdateSongResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateSongResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgUpdateSongResponse proto.InternalMessageInfo
+
+type MsgDeleteSong struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *MsgDeleteSong) Reset()         { *m = MsgDeleteSong{} }
+func (m *MsgDeleteSong) String() string { return proto.CompactTextString(m) }
+func (*MsgDeleteSong) ProtoMessage()    {}
+func (*MsgDeleteSong) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d889f81a2b90c745, []int{6}
+}
+func (m *MsgDeleteSong) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgDeleteSong) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgDeleteSong.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgDeleteSong) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgDeleteSong.Merge(m, src)
+}
+func (m *MsgDeleteSong) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgDeleteSong) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgDeleteSong.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgDeleteSong proto.InternalMessageInfo
+
+func (m *MsgDeleteSong) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgDeleteSong) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type MsgDeleteSongResponse struct {
+}
+
+func (m *MsgDeleteSongResponse) Reset()         { *m = MsgDeleteSongResponse{} }
+func (m *MsgDeleteSongResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgDeleteSongResponse) ProtoMessage()    {}
+func (*MsgDeleteSongResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d889f81a2b90c745, []int{7}
+}
+func (m *MsgDeleteSongResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgDeleteSongResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgDeleteSongResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgDeleteSongResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgDeleteSongResponse.Merge(m, src)
+}
+func (m *MsgDeleteSongResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgDeleteSongResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgDeleteSongResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgDeleteSongResponse proto.InternalMessageInfo
+
+type MsgCreatePlaylist struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Title   string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Id      uint64 `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *MsgCreatePlaylist) Reset()         { *m = MsgCreatePlaylist{} }
+func (m *MsgCreatePlaylist) String() string { return proto.CompactTextString(m) }
+func (*MsgCreatePlaylist) ProtoMessage()    {}
+func (*MsgCreatePlaylist) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d889f81a2b90c745, []int{8}
+}
+func (m *MsgCreatePlaylist) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreatePlaylist) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreatePlaylist.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreatePlaylist) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreatePlaylist.Merge(m, src)
+}
+func (m *MsgCreatePlaylist) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreatePlaylist) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreatePlaylist.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreatePlaylist proto.InternalMessageInfo
+
+func (m *MsgCreatePlaylist) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgCreatePlaylist) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *MsgCreatePlaylist) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type MsgCreatePlaylistResponse struct {
+	Playlist uint64 `protobuf:"varint,1,opt,name=playlist,proto3" json:"playlist,omitempty"`
+}
+
+func (m *MsgCreatePlaylistResponse) Reset()         { *m = MsgCreatePlaylistResponse{} }
+func (m *MsgCreatePlaylistResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgCreatePlaylistResponse) ProtoMessage()    {}
+func (*MsgCreatePlaylistResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d889f81a2b90c745, []int{9}
+}
+func (m *MsgCreatePlaylistResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreatePlaylistResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreatePlaylistResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreatePlaylistResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreatePlaylistResponse.Merge(m, src)
+}
+func (m *MsgCreatePlaylistResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreatePlaylistResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreatePlaylistResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreatePlaylistResponse proto.InternalMessageInfo
+
+func (m *MsgCreatePlaylistResponse) GetPlaylist() uint64 {
+	if m != nil {
+		return m.Playlist
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*MsgUpdateParams)(nil), "music.music.MsgUpdateParams")
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "music.music.MsgUpdateParamsResponse")
+	proto.RegisterType((*MsgCreateSong)(nil), "music.music.MsgCreateSong")
+	proto.RegisterType((*MsgCreateSongResponse)(nil), "music.music.MsgCreateSongResponse")
+	proto.RegisterType((*MsgUpdateSong)(nil), "music.music.MsgUpdateSong")
+	proto.RegisterType((*MsgUpdateSongResponse)(nil), "music.music.MsgUpdateSongResponse")
+	proto.RegisterType((*MsgDeleteSong)(nil), "music.music.MsgDeleteSong")
+	proto.RegisterType((*MsgDeleteSongResponse)(nil), "music.music.MsgDeleteSongResponse")
+	proto.RegisterType((*MsgCreatePlaylist)(nil), "music.music.MsgCreatePlaylist")
+	proto.RegisterType((*MsgCreatePlaylistResponse)(nil), "music.music.MsgCreatePlaylistResponse")
 }
 
 func init() { proto.RegisterFile("music/music/tx.proto", fileDescriptor_d889f81a2b90c745) }
 
 var fileDescriptor_d889f81a2b90c745 = []byte{
-	// 313 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0xc9, 0x2d, 0x2d, 0xce,
-	0x4c, 0xd6, 0x87, 0x90, 0x25, 0x15, 0x7a, 0x05, 0x45, 0xf9, 0x25, 0xf9, 0x42, 0xdc, 0x60, 0xbe,
-	0x1e, 0x98, 0x94, 0x12, 0x4c, 0xcc, 0xcd, 0xcc, 0xcb, 0xd7, 0x07, 0x93, 0x10, 0x79, 0x29, 0xf1,
-	0xe4, 0xfc, 0xe2, 0xdc, 0xfc, 0x62, 0xfd, 0xdc, 0xe2, 0x74, 0xfd, 0x32, 0x43, 0x10, 0x05, 0x95,
-	0x90, 0x84, 0x48, 0xc4, 0x83, 0x79, 0xfa, 0x10, 0x0e, 0x54, 0x4a, 0x24, 0x3d, 0x3f, 0x3d, 0x1f,
-	0x22, 0x0e, 0x62, 0x41, 0x45, 0x25, 0x90, 0xed, 0x2f, 0x48, 0x2c, 0x4a, 0xcc, 0x85, 0xaa, 0x57,
-	0xda, 0xcc, 0xc8, 0xc5, 0xef, 0x5b, 0x9c, 0x1e, 0x5a, 0x90, 0x92, 0x58, 0x92, 0x1a, 0x00, 0x96,
-	0x11, 0x32, 0xe3, 0xe2, 0x4c, 0x2c, 0x2d, 0xc9, 0xc8, 0x2f, 0xca, 0x2c, 0xa9, 0x94, 0x60, 0x54,
-	0x60, 0xd4, 0xe0, 0x74, 0x92, 0xb8, 0xb4, 0x45, 0x57, 0x04, 0x6a, 0x91, 0x63, 0x4a, 0x4a, 0x51,
-	0x6a, 0x71, 0x71, 0x70, 0x49, 0x51, 0x66, 0x5e, 0x7a, 0x10, 0x42, 0xa9, 0x90, 0x19, 0x17, 0x1b,
-	0xc4, 0x6c, 0x09, 0x26, 0x05, 0x46, 0x0d, 0x6e, 0x23, 0x61, 0x3d, 0x24, 0x0f, 0xea, 0x41, 0x0c,
-	0x77, 0xe2, 0x3c, 0x71, 0x4f, 0x9e, 0x61, 0xc5, 0xf3, 0x0d, 0x5a, 0x8c, 0x41, 0x50, 0xd5, 0x56,
-	0x06, 0x4d, 0xcf, 0x37, 0x68, 0x21, 0xcc, 0xe9, 0x7a, 0xbe, 0x41, 0x4b, 0x16, 0xe2, 0xd4, 0x0a,
-	0xa8, 0x93, 0xd1, 0x5c, 0xa8, 0x24, 0xc9, 0x25, 0x8e, 0x26, 0x14, 0x94, 0x5a, 0x5c, 0x90, 0x9f,
-	0x57, 0x9c, 0x6a, 0x94, 0xc0, 0xc5, 0xec, 0x5b, 0x9c, 0x2e, 0x14, 0xc4, 0xc5, 0x83, 0xe2, 0x27,
-	0x19, 0x14, 0xb7, 0xa0, 0x69, 0x96, 0x52, 0xc1, 0x27, 0x0b, 0x33, 0x5a, 0x8a, 0xb5, 0x01, 0xe4,
-	0x6c, 0x27, 0xdd, 0x13, 0x8f, 0xe4, 0x18, 0x2f, 0x3c, 0x92, 0x63, 0x7c, 0xf0, 0x48, 0x8e, 0x71,
-	0xc2, 0x63, 0x39, 0x86, 0x0b, 0x8f, 0xe5, 0x18, 0x6e, 0x3c, 0x96, 0x63, 0x88, 0x12, 0x46, 0x75,
-	0x75, 0x49, 0x65, 0x41, 0x6a, 0x71, 0x12, 0x1b, 0x38, 0xa0, 0x8d, 0x01, 0x01, 0x00, 0x00, 0xff,
-	0xff, 0x4d, 0xb5, 0x55, 0xaa, 0x04, 0x02, 0x00, 0x00,
+	// 522 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x54, 0xcf, 0x6b, 0x13, 0x41,
+	0x14, 0xce, 0x26, 0xb6, 0x9a, 0xd7, 0x5a, 0xe9, 0x36, 0x92, 0xcd, 0xa0, 0x6b, 0x59, 0x44, 0x4b,
+	0xa0, 0x59, 0xad, 0x50, 0xa1, 0x37, 0xa3, 0xe0, 0xc5, 0x40, 0xd9, 0x22, 0x88, 0x20, 0xb2, 0x66,
+	0x87, 0x75, 0x20, 0x9b, 0x59, 0x76, 0xa6, 0xd2, 0xdc, 0xc4, 0xa3, 0x27, 0xff, 0x08, 0x0f, 0x1e,
+	0x03, 0xfa, 0x47, 0xf4, 0x58, 0x3c, 0x79, 0x12, 0x49, 0x0e, 0xf9, 0x37, 0x64, 0x67, 0x66, 0x7f,
+	0xc7, 0x08, 0xe2, 0x65, 0x92, 0xf7, 0xbe, 0x97, 0xef, 0xfb, 0xde, 0xbc, 0x37, 0x81, 0x56, 0x70,
+	0xca, 0xc8, 0xd0, 0x96, 0x27, 0x3f, 0xeb, 0x85, 0x11, 0xe5, 0x54, 0xdf, 0x10, 0x71, 0x4f, 0x9c,
+	0x68, 0xdb, 0x0d, 0xc8, 0x98, 0xda, 0xe2, 0x94, 0x38, 0x6a, 0x0f, 0x29, 0x0b, 0x28, 0xb3, 0x03,
+	0xe6, 0xdb, 0xef, 0xee, 0xc7, 0x1f, 0x0a, 0xe8, 0x48, 0xe0, 0xb5, 0x88, 0x6c, 0x19, 0x28, 0xa8,
+	0xe5, 0x53, 0x9f, 0xca, 0x7c, 0xfc, 0x4d, 0x65, 0x8d, 0xbc, 0x7e, 0xe8, 0x46, 0x6e, 0xa0, 0xea,
+	0xad, 0xaf, 0x1a, 0x5c, 0x1b, 0x30, 0xff, 0x79, 0xe8, 0xb9, 0x1c, 0x1f, 0x0b, 0x44, 0x3f, 0x84,
+	0xa6, 0x7b, 0xca, 0xdf, 0xd2, 0x88, 0xf0, 0x89, 0xa1, 0xed, 0x6a, 0x7b, 0xcd, 0xbe, 0xf1, 0xfd,
+	0xdb, 0x7e, 0x4b, 0x09, 0x3d, 0xf2, 0xbc, 0x08, 0x33, 0x76, 0xc2, 0x23, 0x32, 0xf6, 0x9d, 0xac,
+	0x54, 0x3f, 0x84, 0x75, 0xc9, 0x6d, 0xd4, 0x77, 0xb5, 0xbd, 0x8d, 0x83, 0x9d, 0x5e, 0xae, 0xc1,
+	0x9e, 0x24, 0xef, 0x37, 0xcf, 0x7f, 0xde, 0xaa, 0x7d, 0x59, 0x4c, 0xbb, 0x9a, 0xa3, 0xaa, 0x8f,
+	0xee, 0x7d, 0x58, 0x4c, 0xbb, 0x19, 0xcf, 0xc7, 0xc5, 0xb4, 0x7b, 0x53, 0x5a, 0x3d, 0x53, 0x96,
+	0x4b, 0x0e, 0xad, 0x0e, 0xb4, 0x4b, 0x29, 0x07, 0xb3, 0x90, 0x8e, 0x19, 0xb6, 0x06, 0x70, 0x75,
+	0xc0, 0xfc, 0xc7, 0x11, 0x76, 0x39, 0x3e, 0xa1, 0x63, 0x5f, 0x37, 0xe0, 0xf2, 0x30, 0x8e, 0x68,
+	0x24, 0x7b, 0x71, 0x92, 0x50, 0x6f, 0xc1, 0x1a, 0x27, 0x7c, 0x84, 0x85, 0xdd, 0xa6, 0x23, 0x83,
+	0xa3, 0xcd, 0xd8, 0x4d, 0x52, 0x63, 0xdd, 0x85, 0xeb, 0x05, 0xba, 0x44, 0x47, 0xdf, 0x82, 0x3a,
+	0xf1, 0x04, 0xe3, 0x25, 0xa7, 0x4e, 0x3c, 0xeb, 0x95, 0xd0, 0x95, 0x96, 0xfe, 0x45, 0x57, 0x11,
+	0x36, 0x12, 0xc2, 0x92, 0x8f, 0xb6, 0xf0, 0x91, 0xd1, 0xa7, 0xfd, 0x3e, 0x15, 0xba, 0x4f, 0xf0,
+	0x08, 0xff, 0x55, 0x57, 0x2a, 0xd4, 0x57, 0x2a, 0x64, 0x44, 0xa9, 0x82, 0x0b, 0xdb, 0xe9, 0x15,
+	0x1c, 0x8f, 0xdc, 0xc9, 0x88, 0x30, 0xfe, 0x9f, 0xbb, 0x7b, 0x08, 0x9d, 0x8a, 0x44, 0x7a, 0xd3,
+	0x08, 0xae, 0x84, 0x2a, 0xa7, 0xee, 0x3b, 0x8d, 0x0f, 0x3e, 0x37, 0xa0, 0x31, 0x60, 0xbe, 0xee,
+	0xc0, 0x66, 0x61, 0x85, 0x6f, 0x14, 0x56, 0xaf, 0xb4, 0x2b, 0xe8, 0xf6, 0x2a, 0x34, 0xd5, 0x7d,
+	0x06, 0x90, 0x5b, 0x23, 0x54, 0xfe, 0x4d, 0x86, 0x21, 0xeb, 0xcf, 0x58, 0x9e, 0x2d, 0xb7, 0x1c,
+	0x68, 0xb9, 0x83, 0xe5, 0x6c, 0xd5, 0xa9, 0xc7, 0x6c, 0xb9, 0x91, 0x57, 0xd8, 0x32, 0xac, 0xca,
+	0x56, 0x9d, 0xb0, 0xfe, 0x02, 0xb6, 0x4a, 0xe3, 0x35, 0x97, 0x77, 0x94, 0xe0, 0xe8, 0xce, 0x6a,
+	0x3c, 0x61, 0x46, 0x6b, 0xef, 0xe3, 0x97, 0xde, 0xdf, 0x3f, 0x9f, 0x99, 0xda, 0xc5, 0xcc, 0xd4,
+	0x7e, 0xcd, 0x4c, 0xed, 0xd3, 0xdc, 0xac, 0x5d, 0xcc, 0xcd, 0xda, 0x8f, 0xb9, 0x59, 0x7b, 0xb9,
+	0x53, 0x7c, 0xe8, 0x7c, 0x12, 0x62, 0xf6, 0x66, 0x5d, 0xfc, 0x37, 0x3d, 0xf8, 0x1d, 0x00, 0x00,
+	0xff, 0xff, 0x10, 0xeb, 0x09, 0xab, 0x37, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -173,6 +575,10 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
+	CreateSong(ctx context.Context, in *MsgCreateSong, opts ...grpc.CallOption) (*MsgCreateSongResponse, error)
+	UpdateSong(ctx context.Context, in *MsgUpdateSong, opts ...grpc.CallOption) (*MsgUpdateSongResponse, error)
+	DeleteSong(ctx context.Context, in *MsgDeleteSong, opts ...grpc.CallOption) (*MsgDeleteSongResponse, error)
+	CreatePlaylist(ctx context.Context, in *MsgCreatePlaylist, opts ...grpc.CallOption) (*MsgCreatePlaylistResponse, error)
 }
 
 type msgClient struct {
@@ -192,11 +598,51 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 	return out, nil
 }
 
+func (c *msgClient) CreateSong(ctx context.Context, in *MsgCreateSong, opts ...grpc.CallOption) (*MsgCreateSongResponse, error) {
+	out := new(MsgCreateSongResponse)
+	err := c.cc.Invoke(ctx, "/music.music.Msg/CreateSong", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UpdateSong(ctx context.Context, in *MsgUpdateSong, opts ...grpc.CallOption) (*MsgUpdateSongResponse, error) {
+	out := new(MsgUpdateSongResponse)
+	err := c.cc.Invoke(ctx, "/music.music.Msg/UpdateSong", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) DeleteSong(ctx context.Context, in *MsgDeleteSong, opts ...grpc.CallOption) (*MsgDeleteSongResponse, error) {
+	out := new(MsgDeleteSongResponse)
+	err := c.cc.Invoke(ctx, "/music.music.Msg/DeleteSong", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CreatePlaylist(ctx context.Context, in *MsgCreatePlaylist, opts ...grpc.CallOption) (*MsgCreatePlaylistResponse, error) {
+	out := new(MsgCreatePlaylistResponse)
+	err := c.cc.Invoke(ctx, "/music.music.Msg/CreatePlaylist", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
+	CreateSong(context.Context, *MsgCreateSong) (*MsgCreateSongResponse, error)
+	UpdateSong(context.Context, *MsgUpdateSong) (*MsgUpdateSongResponse, error)
+	DeleteSong(context.Context, *MsgDeleteSong) (*MsgDeleteSongResponse, error)
+	CreatePlaylist(context.Context, *MsgCreatePlaylist) (*MsgCreatePlaylistResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -205,6 +651,18 @@ type UnimplementedMsgServer struct {
 
 func (*UnimplementedMsgServer) UpdateParams(ctx context.Context, req *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
+}
+func (*UnimplementedMsgServer) CreateSong(ctx context.Context, req *MsgCreateSong) (*MsgCreateSongResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSong not implemented")
+}
+func (*UnimplementedMsgServer) UpdateSong(ctx context.Context, req *MsgUpdateSong) (*MsgUpdateSongResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSong not implemented")
+}
+func (*UnimplementedMsgServer) DeleteSong(ctx context.Context, req *MsgDeleteSong) (*MsgDeleteSongResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSong not implemented")
+}
+func (*UnimplementedMsgServer) CreatePlaylist(ctx context.Context, req *MsgCreatePlaylist) (*MsgCreatePlaylistResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePlaylist not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -229,6 +687,78 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CreateSong_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCreateSong)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CreateSong(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/music.music.Msg/CreateSong",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CreateSong(ctx, req.(*MsgCreateSong))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UpdateSong_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateSong)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UpdateSong(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/music.music.Msg/UpdateSong",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UpdateSong(ctx, req.(*MsgUpdateSong))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_DeleteSong_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgDeleteSong)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).DeleteSong(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/music.music.Msg/DeleteSong",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).DeleteSong(ctx, req.(*MsgDeleteSong))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CreatePlaylist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCreatePlaylist)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CreatePlaylist(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/music.music.Msg/CreatePlaylist",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CreatePlaylist(ctx, req.(*MsgCreatePlaylist))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var Msg_serviceDesc = _Msg_serviceDesc
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "music.music.Msg",
@@ -237,6 +767,22 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateParams",
 			Handler:    _Msg_UpdateParams_Handler,
+		},
+		{
+			MethodName: "CreateSong",
+			Handler:    _Msg_CreateSong_Handler,
+		},
+		{
+			MethodName: "UpdateSong",
+			Handler:    _Msg_UpdateSong_Handler,
+		},
+		{
+			MethodName: "DeleteSong",
+			Handler:    _Msg_DeleteSong_Handler,
+		},
+		{
+			MethodName: "CreatePlaylist",
+			Handler:    _Msg_CreatePlaylist_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -306,6 +852,264 @@ func (m *MsgUpdateParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgCreateSong) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreateSong) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreateSong) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Title) > 0 {
+		i -= len(m.Title)
+		copy(dAtA[i:], m.Title)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Title)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgCreateSongResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreateSongResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreateSongResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUpdateSong) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUpdateSong) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUpdateSong) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.Title) > 0 {
+		i -= len(m.Title)
+		copy(dAtA[i:], m.Title)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Title)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUpdateSongResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUpdateSongResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUpdateSongResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgDeleteSong) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgDeleteSong) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgDeleteSong) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgDeleteSongResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgDeleteSongResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgDeleteSongResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgCreatePlaylist) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreatePlaylist) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreatePlaylist) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.Title) > 0 {
+		i -= len(m.Title)
+		copy(dAtA[i:], m.Title)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Title)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgCreatePlaylistResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreatePlaylistResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreatePlaylistResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Playlist != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Playlist))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -338,6 +1142,121 @@ func (m *MsgUpdateParamsResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
+	return n
+}
+
+func (m *MsgCreateSong) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgCreateSongResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Id != 0 {
+		n += 1 + sovTx(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *MsgUpdateSong) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Id != 0 {
+		n += 1 + sovTx(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *MsgUpdateSongResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgDeleteSong) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Id != 0 {
+		n += 1 + sovTx(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *MsgDeleteSongResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgCreatePlaylist) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Id != 0 {
+		n += 1 + sovTx(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *MsgCreatePlaylistResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Playlist != 0 {
+		n += 1 + sovTx(uint64(m.Playlist))
+	}
 	return n
 }
 
@@ -491,6 +1410,725 @@ func (m *MsgUpdateParamsResponse) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: MsgUpdateParamsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgCreateSong) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreateSong: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreateSong: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgCreateSongResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreateSongResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreateSongResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUpdateSong) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUpdateSong: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUpdateSong: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUpdateSongResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUpdateSongResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUpdateSongResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgDeleteSong) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgDeleteSong: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgDeleteSong: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgDeleteSongResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgDeleteSongResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgDeleteSongResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgCreatePlaylist) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreatePlaylist: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreatePlaylist: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgCreatePlaylistResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreatePlaylistResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreatePlaylistResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Playlist", wireType)
+			}
+			m.Playlist = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Playlist |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])

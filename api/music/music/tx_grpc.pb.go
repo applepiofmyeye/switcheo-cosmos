@@ -8,7 +8,6 @@ package music
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -20,7 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName = "/music.music.Msg/UpdateParams"
+	Msg_UpdateParams_FullMethodName   = "/music.music.Msg/UpdateParams"
+	Msg_CreateSong_FullMethodName     = "/music.music.Msg/CreateSong"
+	Msg_UpdateSong_FullMethodName     = "/music.music.Msg/UpdateSong"
+	Msg_DeleteSong_FullMethodName     = "/music.music.Msg/DeleteSong"
+	Msg_CreatePlaylist_FullMethodName = "/music.music.Msg/CreatePlaylist"
 )
 
 // MsgClient is the client API for Msg service.
@@ -30,6 +33,10 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
+	CreateSong(ctx context.Context, in *MsgCreateSong, opts ...grpc.CallOption) (*MsgCreateSongResponse, error)
+	UpdateSong(ctx context.Context, in *MsgUpdateSong, opts ...grpc.CallOption) (*MsgUpdateSongResponse, error)
+	DeleteSong(ctx context.Context, in *MsgDeleteSong, opts ...grpc.CallOption) (*MsgDeleteSongResponse, error)
+	CreatePlaylist(ctx context.Context, in *MsgCreatePlaylist, opts ...grpc.CallOption) (*MsgCreatePlaylistResponse, error)
 }
 
 type msgClient struct {
@@ -49,6 +56,42 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 	return out, nil
 }
 
+func (c *msgClient) CreateSong(ctx context.Context, in *MsgCreateSong, opts ...grpc.CallOption) (*MsgCreateSongResponse, error) {
+	out := new(MsgCreateSongResponse)
+	err := c.cc.Invoke(ctx, Msg_CreateSong_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UpdateSong(ctx context.Context, in *MsgUpdateSong, opts ...grpc.CallOption) (*MsgUpdateSongResponse, error) {
+	out := new(MsgUpdateSongResponse)
+	err := c.cc.Invoke(ctx, Msg_UpdateSong_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) DeleteSong(ctx context.Context, in *MsgDeleteSong, opts ...grpc.CallOption) (*MsgDeleteSongResponse, error) {
+	out := new(MsgDeleteSongResponse)
+	err := c.cc.Invoke(ctx, Msg_DeleteSong_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CreatePlaylist(ctx context.Context, in *MsgCreatePlaylist, opts ...grpc.CallOption) (*MsgCreatePlaylistResponse, error) {
+	out := new(MsgCreatePlaylistResponse)
+	err := c.cc.Invoke(ctx, Msg_CreatePlaylist_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -56,6 +99,10 @@ type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
+	CreateSong(context.Context, *MsgCreateSong) (*MsgCreateSongResponse, error)
+	UpdateSong(context.Context, *MsgUpdateSong) (*MsgUpdateSongResponse, error)
+	DeleteSong(context.Context, *MsgDeleteSong) (*MsgDeleteSongResponse, error)
+	CreatePlaylist(context.Context, *MsgCreatePlaylist) (*MsgCreatePlaylistResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -65,6 +112,18 @@ type UnimplementedMsgServer struct {
 
 func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
+}
+func (UnimplementedMsgServer) CreateSong(context.Context, *MsgCreateSong) (*MsgCreateSongResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSong not implemented")
+}
+func (UnimplementedMsgServer) UpdateSong(context.Context, *MsgUpdateSong) (*MsgUpdateSongResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSong not implemented")
+}
+func (UnimplementedMsgServer) DeleteSong(context.Context, *MsgDeleteSong) (*MsgDeleteSongResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSong not implemented")
+}
+func (UnimplementedMsgServer) CreatePlaylist(context.Context, *MsgCreatePlaylist) (*MsgCreatePlaylistResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePlaylist not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -97,6 +156,78 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CreateSong_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCreateSong)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CreateSong(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CreateSong_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CreateSong(ctx, req.(*MsgCreateSong))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UpdateSong_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateSong)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UpdateSong(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_UpdateSong_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UpdateSong(ctx, req.(*MsgUpdateSong))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_DeleteSong_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgDeleteSong)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).DeleteSong(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_DeleteSong_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).DeleteSong(ctx, req.(*MsgDeleteSong))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CreatePlaylist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCreatePlaylist)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CreatePlaylist(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CreatePlaylist_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CreatePlaylist(ctx, req.(*MsgCreatePlaylist))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -107,6 +238,22 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateParams",
 			Handler:    _Msg_UpdateParams_Handler,
+		},
+		{
+			MethodName: "CreateSong",
+			Handler:    _Msg_CreateSong_Handler,
+		},
+		{
+			MethodName: "UpdateSong",
+			Handler:    _Msg_UpdateSong_Handler,
+		},
+		{
+			MethodName: "DeleteSong",
+			Handler:    _Msg_DeleteSong_Handler,
+		},
+		{
+			MethodName: "CreatePlaylist",
+			Handler:    _Msg_CreatePlaylist_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -8,7 +8,6 @@ package music
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -20,7 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName = "/music.music.Query/Params"
+	Query_Params_FullMethodName       = "/music.music.Query/Params"
+	Query_ShowSong_FullMethodName     = "/music.music.Query/ShowSong"
+	Query_ListPlaylist_FullMethodName = "/music.music.Query/ListPlaylist"
 )
 
 // QueryClient is the client API for Query service.
@@ -29,6 +30,10 @@ const (
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
+	// Queries a list of ShowSong items.
+	ShowSong(ctx context.Context, in *QueryShowSongRequest, opts ...grpc.CallOption) (*QueryShowSongResponse, error)
+	// Queries a list of ListPlaylist items.
+	ListPlaylist(ctx context.Context, in *QueryListPlaylistRequest, opts ...grpc.CallOption) (*QueryListPlaylistResponse, error)
 }
 
 type queryClient struct {
@@ -48,12 +53,34 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 	return out, nil
 }
 
+func (c *queryClient) ShowSong(ctx context.Context, in *QueryShowSongRequest, opts ...grpc.CallOption) (*QueryShowSongResponse, error) {
+	out := new(QueryShowSongResponse)
+	err := c.cc.Invoke(ctx, Query_ShowSong_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) ListPlaylist(ctx context.Context, in *QueryListPlaylistRequest, opts ...grpc.CallOption) (*QueryListPlaylistResponse, error) {
+	out := new(QueryListPlaylistResponse)
+	err := c.cc.Invoke(ctx, Query_ListPlaylist_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
+	// Queries a list of ShowSong items.
+	ShowSong(context.Context, *QueryShowSongRequest) (*QueryShowSongResponse, error)
+	// Queries a list of ListPlaylist items.
+	ListPlaylist(context.Context, *QueryListPlaylistRequest) (*QueryListPlaylistResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -63,6 +90,12 @@ type UnimplementedQueryServer struct {
 
 func (UnimplementedQueryServer) Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
+}
+func (UnimplementedQueryServer) ShowSong(context.Context, *QueryShowSongRequest) (*QueryShowSongResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ShowSong not implemented")
+}
+func (UnimplementedQueryServer) ListPlaylist(context.Context, *QueryListPlaylistRequest) (*QueryListPlaylistResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPlaylist not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -95,6 +128,42 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_ShowSong_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryShowSongRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ShowSong(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_ShowSong_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ShowSong(ctx, req.(*QueryShowSongRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_ListPlaylist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryListPlaylistRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ListPlaylist(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_ListPlaylist_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ListPlaylist(ctx, req.(*QueryListPlaylistRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -105,6 +174,14 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Params",
 			Handler:    _Query_Params_Handler,
+		},
+		{
+			MethodName: "ShowSong",
+			Handler:    _Query_ShowSong_Handler,
+		},
+		{
+			MethodName: "ListPlaylist",
+			Handler:    _Query_ListPlaylist_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -8,6 +8,18 @@ import (
 )
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateSong{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgUpdateSong{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgDeleteSong{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreatePlaylist{},
+	)
 	// this line is used by starport scaffolding # 3
 
 	registry.RegisterImplementations((*sdk.Msg)(nil),

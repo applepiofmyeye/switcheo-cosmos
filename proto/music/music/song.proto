@@ -1,0 +1,12 @@
+syntax = "proto3";
+package music.music;
+
+option go_package = "music/x/music/types";
+
+message Song {
+  
+  string title = 1; 
+  string creator = 2; 
+  uint64 playlist = 3; 
+  uint64 id = 4; 
+}
